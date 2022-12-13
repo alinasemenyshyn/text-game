@@ -1,0 +1,95 @@
+~~main.py~~
+
+from hero import Hero, Buyer, MyClass
+hero1 = Buyer("Buyer", 20, 15, 4, "Hanger")
+hero2 = Hero("Alinka", 20, 20, 9, "Bag")
+hero3 = MyClass("Security", 40, 40, 20, "Stick")
+
+hero1.print_info()
+hero2.print_info()
+
+hero1.fight(hero2)
+
+hero3.print_info()
+
+~~hero.py~~
+
+from time import sleep
+
+print("Alinka saw the last dress in the store, but another buyer approached and a fight began")
+
+print("The buyer takes the hanger")
+
+class Hero():
+    def __init__(self, name, health, armor, demage, weapon):
+        self.name = name
+        self.health = health
+        self.armor = armor
+        self.demage = demage
+        self.weapon = weapon
+
+    def attack(self, enemy):
+        print("Attack!! ", self.name, "attack", enemy.name)
+        sleep(2)
+        print("Hit!")
+        sleep(2)
+        enemy.armor = enemy.armor - self.demage
+        if enemy.armor < 3:
+            enemy.health = enemy.health + enemy.armor
+            enemy.armor = 0
+        print(enemy.name, "armor is", enemy.armor, "and", enemy.health)
+        sleep(2)
+
+    def print_info(self):
+        print("New hero:", self.name)
+        sleep(2)
+        print("Health:", self.health)
+        sleep(2)
+        print("Armor:", self.armor)
+        sleep(2)
+        print("Weapon:", self.weapon)
+        sleep(2)
+
+    def fight(self, enemy):
+        while self.health >= 3 or enemy.health >= 0:
+            if enemy.health <= 0:
+                print(enemy.name, "remained without a dress")
+                sleep(2)
+                break
+            if self.health <= 0:
+                print(self.name, enemy.name,  "remained without a dress")
+                sleep(2)
+                break
+            if enemy.health >= 0:
+                self.attack(enemy) 
+            if self.health >= 0:
+                enemy.attack(self)
+           
+
+        print("The buyer broke two of Alina's nails")
+        print("-")
+        print("Alinka pulled out a ball of hair from the buyer") 
+
+class Buyer(Hero):
+    def __init__(self, name, health, armor, demage, weapon):
+        super().__init__(name, health, armor, demage, weapon)
+
+class MyClass(Hero):
+    def __init__(myclass, name, health, armor, demage, weapon):
+        myclass.name = name
+        myclass.health = health
+        myclass.armor = armor
+        myclass.demage = demage
+        myclass.weapon = weapon
+
+    def print_info(myclass):
+        print("Person comes to the fight:", myclass.name)
+        sleep(2)
+        print("Health:", myclass.health)
+        sleep(2)
+        print("Armor:", myclass.armor)
+        sleep(2)
+        print("Weapon:", myclass.weapon)
+        sleep(2)
+        print("He did not beat, but simply drove out")
+        print("end.")
